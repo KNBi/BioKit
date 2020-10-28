@@ -1,21 +1,17 @@
-import "./style.css";
-const axios = require('axios');
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
 
-async function getServerResponse() {
-    try {
-        const response = await axios.get('http://localhost:5000/');
-        return response.data.response;
-    } catch(err) {
-        console.error(err);
-    }
-}
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
 
-async function insertDataFromServer(element) {
-    try {
-        element.textContent = await getServerResponse();
-    } catch(err) {
-        console.error(err);
-    }
-}
-
-insertDataFromServer(document.querySelector(".container"));
+// If you want to start measuring performance in your app, pass a function
+// to log results (for example: reportWebVitals(console.log))
+// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
+reportWebVitals();
