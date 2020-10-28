@@ -6,3 +6,6 @@ def example_server_response():
     response = jsonify(response="Hello World!")
     response.headers.add("Access-Control-Allow-Origin", "*")
     return response
+
+if __name__ == "__main__":
+    app.run(debug=True)
