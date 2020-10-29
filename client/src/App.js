@@ -1,6 +1,6 @@
 import './App.css';
 import React from "react";
-import axios from 'axios';
+import exampleCall from "./api/ExampleCall";
 
 class App extends React.Component {
   constructor(props) {
@@ -10,22 +10,19 @@ class App extends React.Component {
     };
   }
 
-  componentDidMount() {
-    const fetchServerData = async () => {
-      try {
-        const serverResponse = await axios.get("http://localhost:5000/");
-        this.setState({data: serverResponse.data.response});
-      } catch(err) {
-        // console.error(err);
-      }
-    };
-    fetchServerData();
+  async componentDidMount() {
+    try {
+      const serverData = await exampleCall();
+      this.setState({data: serverData.data.response});
+    } catch(err) {
+      this.setState({data: "Could not connect to server"})
+    }
   }
 
   render() {
     return(
       <div className="App">
-        <h1>{this.state.data !== "" ? this.state.data : "Could not connect to server"}</h1>
+        <h1>{this.state.data}</h1>
       </div>
     )
   }

@@ -1,24 +1,23 @@
-import { cleanup, findByText, getByText, render, screen} from '@testing-library/react';
+import { cleanup } from '@testing-library/react';
+import axios from 'axios';
 import { shallow } from 'enzyme';
 import App from '../App';
-import axios from 'axios';
-
-jest.mock('axios');
 
 describe('App', () => {
-  describe('when the fetch operation failed', () => {
-    it('shows error message', () => {
-      const { getByText } = render(<App />);
-      expect(getByText(/Could not connect to server/i)).toBeInTheDocument();
-      cleanup();
-    });
-  });
+  describe('when server is called', () => {
+    it('shows server response', async () => {
+      jest.spyOn(axios, 'get').mockReturnValue({ data: { response: "Hello World!" } });
 
-  describe('when the fetch operation is done', () => {
-    it('shows message from server', async () => {
-      const getSpy = jest.spyOn(axios, 'get');
-      const appInstance = shallow(<App />);
-      expect(getSpy).toBeCalled();
+      let wrapper = shallow(<App />);
+      await wrapper.instance().busy;
+      expect(wrapper.state().data).toEqual("Hello World!");
+      cleanup();
+    })
+
+    it('shows error message', async () => {
+      let wrapper = shallow(<App />);
+      await wrapper.instance().busy;
+      expect(wrapper.state().data).toEqual("Could not connect to server");
       cleanup();
     })
   })
