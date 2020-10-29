@@ -23,6 +23,7 @@ class App extends React.Component {
     return(
       <div className="App">
         <h1>{this.state.data}</h1>
+        <h1>Testing Workflow</h1>
       </div>
     )
   }
