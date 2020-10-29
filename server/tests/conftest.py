@@ -1,8 +1,5 @@
-from dotenv import load_dotenv
-load_dotenv()
-
-import sys, os
-sys.path.append(os.getenv("MODULE_PATH"))
+import sys
+sys.path.append("./")
 
 import pytest
 from app import app as flask_app
